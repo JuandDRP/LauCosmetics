@@ -1,0 +1,84 @@
+<header class="mobile-header">
+  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+</header>
+
+<div class="sidebar" [class.expanded]="expanded()">
+
+  <div class="logo">
+    <img class="logo-full" src="logo.png" alt="Logo" />
+  </div>
+
+  <div class="menu-top">
+    <div class="menu-group">
+
+      <div class="menu-parent"
+           [class.active]="activeItem().startsWith('cases')"
+           (click)="toggleGroup('cases')">
+
+        <div class="menu-parent__left">
+          <i class="pi pi-folder"></i>
+          <span>Gestión de Productos</span>
+        </div>
+
+        <i class="pi"
+           [class.pi-chevron-down]="isGroupOpen('cases')"
+           [class.pi-chevron-up]="!isGroupOpen('cases')"></i>
+      </div>
+
+      @if (isGroupOpen('cases')) {
+      <div class="submenu">
+        <div class="submenu__rail"></div>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.ver_productos"
+           (click)="setActive(SidebarItemKey.ver_productos)"
+           routerLink="/ver-productos">
+          Ver productos
+        </a>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.crear_producto"
+           (click)="setActive(SidebarItemKey.crear_producto)"
+           routerLink="/crear-producto">
+          Crear Producto
+        </a>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.agregar_venta"
+           (click)="setActive(SidebarItemKey.agregar_venta)"
+           routerLink="/agregar-venta">
+          Agregar venta
+        </a>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.eliminar_venta"
+           (click)="setActive(SidebarItemKey.eliminar_venta)"
+           routerLink="/revertir-venta">
+          Revertir venta
+        </a>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.actualizar_stock"
+           (click)="setActive(SidebarItemKey.actualizar_stock)"
+           routerLink="/agregar-stock">
+          Agregar stock
+        </a>
+
+        <a class="submenu-item"
+           [class.submenu-item--active]="activeItem() === SidebarItemKey.calculadora"
+           (click)="setActive(SidebarItemKey.calculadora)"
+           routerLink="/calculadora">
+          Calculadora
+        </a>
+
+      </div>
+      }
+
+    </div>
+  </div>
+
+</div>
+
+@if (expanded()) {
+  <div class="backdrop" (click)="toggleSidebar()"></div>
+}

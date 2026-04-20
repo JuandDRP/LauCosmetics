@@ -1,0 +1,96 @@
+<div class="page-container">
+
+  @if (hasLoadedDataError()) {
+    <!-- TODO: Error component -->
+  } @else {
+
+    <p-card class="custom-card">
+
+      <form
+        [formGroup]="formulario"
+        (submit)="actualizarStock()"
+        class="form-grid"
+      >
+
+        <!-- PRODUCTO -->
+        <div class="field full-width">
+          <label>Producto <span>*</span></label>
+
+          <p-dropdown
+            [options]="productosStore.productos()"
+            optionLabel="producto"
+            optionValue="id"
+            formControlName="productoId"
+            placeholder="Seleccionar producto"
+            [filter]="true"
+            filterBy="producto"
+            appendTo="body"
+          >
+
+            <ng-template let-producto pTemplate="item">
+              <div class="dropdown-item">
+                <span>{{ producto.producto }}</span>
+                <small class="stock">
+                  Stock: {{ producto.disponibles }}
+                </small>
+              </div>
+            </ng-template>
+
+            <ng-template let-producto pTemplate="selectedItem">
+              <div *ngIf="producto">
+                {{ producto.producto }} (Stock: {{ producto.disponibles }})
+              </div>
+            </ng-template>
+
+          </p-dropdown>
+
+          @if (obtenerError('productoId')) {
+            <small class="error">
+              {{ obtenerError('productoId') }}
+            </small>
+          }
+        </div>
+
+        <!-- CANTIDAD -->
+        <div class="field">
+          <label>Cantidad a agregar <span>*</span></label>
+
+          <p-inputNumber
+            formControlName="cantidad"
+            [min]="1"
+            [useGrouping]="false"
+            placeholder="Ej: 10"
+          ></p-inputNumber>
+
+          @if (obtenerError('cantidad')) {
+            <small class="error">
+              {{ obtenerError('cantidad') }}
+            </small>
+          }
+        </div>
+
+        <!-- BOTONES -->
+        <div class="buttons full-width">
+          <button
+            pButton
+            type="submit"
+            label="ACTUALIZAR STOCK"
+            class="btn-primary"
+          ></button>
+
+          <button
+            pButton
+            type="button"
+            label="LIMPIAR FORMULARIO"
+            class="btn-secondary"
+            (click)="limpiarFormulario()"
+          ></button>
+        </div>
+
+      </form>
+
+    </p-card>
+
+  }
+
+</div>

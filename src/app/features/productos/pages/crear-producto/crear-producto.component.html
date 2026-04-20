@@ -1,0 +1,98 @@
+<div class="page-container">
+  
+
+  @if (hasLoadedDataError()) {
+  } @else {
+    <p-card class="custom-card">
+      <form [formGroup]="formulario" (submit)="crearProducto()" class="form-grid">
+
+        <div class="field">
+          <label>Nombre del producto<span>*</span></label>
+          <input
+            pInputText
+            formControlName="producto"
+            placeholder="Escribe aquí..."
+          />
+          @if (obtenerError('producto')) {
+            <small class="error">
+              {{ obtenerError('producto') }}
+            </small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Cantidad <span>*</span></label>
+
+          <p-inputNumber
+            formControlName="cantidad"
+            [min]="0"
+            [useGrouping]="false"
+            placeholder="Ingrese la cantidad del producto"
+          ></p-inputNumber>
+
+          @if (obtenerError('cantidad')) {
+            <small class="error">
+              {{ obtenerError('cantidad') }}
+            </small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Costo <span>*</span></label>
+
+          <p-inputNumber
+            formControlName="costo"
+            suffix="$"
+            [min]="0"
+            [useGrouping]="false"
+            placeholder="Ingrese el costo unitario"
+          ></p-inputNumber>
+
+          @if (obtenerError('costo')) {
+            <small class="error">
+              {{ obtenerError('costo') }}
+            </small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Margen <span>*</span></label>
+
+          <p-inputNumber
+            formControlName="margen"
+            [min]="0"
+            [max]="100"
+            suffix="%"
+            [useGrouping]="false"
+            placeholder="Ej: 35"
+          ></p-inputNumber>
+
+          @if (obtenerError('margen')) {
+            <small class="error">
+              {{ obtenerError('margen') }}
+            </small>
+          }
+        </div>
+
+
+        <div class="buttons full-width">
+          <button
+            pButton
+            type="submit"
+            label="CREAR PRODUCTO"
+            class="btn-primary"
+          ></button>
+
+          <button
+            pButton
+            type="button"
+            label="LIMPIAR FORMULARIO"
+            class="btn-secondary"
+            (click)="limpiarFormulario()"
+          ></button>
+        </div>
+      </form>
+    </p-card>
+  }
+
+</div>

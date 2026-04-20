@@ -1,0 +1,95 @@
+<div class="page-container">
+
+  @if (hasLoadedDataError()) {
+  } @else {
+
+    <p-card class="custom-card">
+
+      <form
+        [formGroup]="formRevertir"
+        (ngSubmit)="revertirVenta()"
+        class="form-grid"
+      >
+
+        <div class="field full-width">
+          <label>Producto <span>*</span></label>
+
+          <p-dropdown
+            [options]="productosConVendidos()"
+            optionLabel="producto"
+            optionValue="id"
+            formControlName="productoId"
+            placeholder="Seleccionar producto"
+            [filter]="true"
+            filterBy="producto"
+            [optionDisabled]="'sinVentas'"
+            appendTo="body"
+          >
+
+            <ng-template let-producto pTemplate="item">
+              <div class="dropdown-item">
+                <span>{{ producto.producto }}</span>
+                <small>
+                  Vendidos: {{ producto.vendidos }}
+                </small>
+              </div>
+            </ng-template>
+
+            <ng-template let-producto pTemplate="selectedItem">
+              <div *ngIf="producto">
+                {{ producto.producto }} (Vendidos: {{ producto.vendidos }})
+              </div>
+            </ng-template>
+
+          </p-dropdown>
+        </div>
+
+        <div class="field">
+          <label>Cantidad a revertir <span>*</span></label>
+
+          <input
+            type="number"
+            pInputText
+            formControlName="cantidad"
+            placeholder="Ej: 2"
+          />
+        </div>
+
+        <div
+          *ngIf="productoSeleccionado() as p"
+          class="info full-width"
+        >
+          <small>
+            Vendidos actuales: <strong>{{ p.vendidos }}</strong>
+          </small>
+        </div>
+
+        <div
+          *ngIf="productoSeleccionado() as p"
+          class="full-width"
+        >
+          <small
+            class="error"
+            *ngIf="(formRevertir.value.cantidad || 0) > p.vendidos"
+          >
+            No puedes revertir más de lo vendido
+          </small>
+        </div>
+
+        <div class="buttons full-width">
+          <button
+            pButton
+            type="submit"
+            label="REVERTIR VENTA"
+            class="btn-primary"
+            [disabled]="formRevertir.invalid"
+          ></button>
+        </div>
+
+      </form>
+
+    </p-card>
+
+  }
+
+</div>

@@ -1,0 +1,41 @@
+/* ─── Google Fonts: Fira Sans ──────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap');
+
+/* ─── Tailwind CSS ─────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeicons/primeicons.css";
+
+/* ─── CSS Custom Properties – Marca GEB ────────────────────────── */
+:root {
+  /* Colores primarios de identidad */
+  --primary: #d63384;       /* rosa fuerte */
+  --primary-soft: #f8d7e5;  /* rosa claro */
+  --background: #fdf8fb;    /* fondo general */
+  --card: #ffffff;          /* tarjetas */
+  --text: #2b2b2b;
+  --muted: #6b7280;
+  --border: #f1d5e4;
+  --hover: #fce7f3;
+  
+
+  /* Tipografía */
+  --font-family-base: 'Fira Sans', Fira, system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'Fira Code', 'Fira Mono', ui-monospace, monospace;
+}
+
+/* ─── Base Styles ──────────────────────────────────────────────── */
+@layer base {
+  body {
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    // overflow-x: hidden;
+  }
+}
+
+/* PrimeNG - Importar tema y estilos base via providePrimeNG en app.config.ts */
+/* @import 'primeng/resources/themes/aura-dark-blue/theme.css'; removed for v18 migration */
+/* @import 'primeng/resources/primeng.min.css'; removed for v18 migration */

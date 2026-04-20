@@ -1,0 +1,53 @@
+<div class="page-container">
+  <p-card class="custom-card">
+
+    <form [formGroup]="form" class="form-grid">
+
+      <div class="field">
+        <label>Costo *</label>
+        <p-inputNumber formControlName="costo" [min]="1"></p-inputNumber>
+      </div>
+
+      <div class="field">
+        <label>Margen % *</label>
+        <p-inputNumber formControlName="margen" [min]="0" [max]="99" suffix="%"></p-inputNumber>
+      </div>
+
+      <div class="field">
+        <label>Descuento %</label>
+        <p-inputNumber formControlName="descuento" [min]="0" [max]="100" suffix="%"></p-inputNumber>
+      </div>
+
+      <div class="buttons full-width">
+        <button
+          pButton
+          type="button"
+          label="CALCULAR"
+          class="btn-primary"
+          (click)="calcular()"
+          [disabled]="form.invalid"
+        ></button>
+      </div>
+
+      <div class="full-width result" *ngIf="precioVenta() !== null">
+        <p>
+          Precio de venta:
+          <strong>{{ precioVenta() }}</strong>
+        </p>
+
+        <p>
+          Precio con descuento:
+          <strong>{{ precioConDescuento() }}</strong>
+        </p>
+      </div>
+
+      <div class="full-width">
+        <small class="error" *ngIf="errorDescuento()">
+          El precio con descuento no puede ser menor al costo
+        </small>
+      </div>
+
+    </form>
+
+  </p-card>
+</div>

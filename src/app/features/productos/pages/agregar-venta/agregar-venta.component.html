@@ -1,0 +1,110 @@
+<div class="page-container">
+
+  @if (hasLoadedDataError()) {
+  } @else {
+
+    <p-card class="custom-card">
+
+      <form
+        [formGroup]="formVenta"
+        (ngSubmit)="registrarVenta()"
+        class="form-grid"
+      >
+
+        <div class="field full-width">
+          <label>Producto <span>*</span></label>
+
+          <p-dropdown
+            [options]="productosConStock()"
+            optionLabel="producto"
+            optionValue="id"
+            formControlName="productoId"
+            placeholder="Seleccionar producto"
+            [filter]="true"
+            filterBy="producto"
+            [optionDisabled]="'sinStock'"
+            appendTo="body"
+          >
+
+            <ng-template let-producto pTemplate="item">
+              <div class="dropdown-item">
+                <span>{{ producto.producto }}</span>
+                <small>
+                  Stock: {{ producto.disponibles }}
+                </small>
+              </div>
+            </ng-template>
+
+            <ng-template let-producto pTemplate="selectedItem">
+              <div *ngIf="producto">
+                {{ producto.producto }} (Stock: {{ producto.disponibles }}) 
+              </div>
+            </ng-template>
+
+          </p-dropdown>
+
+          @if (obtenerError('productoId')) {
+            <small class="error">
+              {{ obtenerError('productoId') }}
+            </small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Cantidad a vender <span>*</span></label>
+
+          <p-inputNumber
+            formControlName="cantidad"
+            [min]="1"
+            [useGrouping]="false"
+            placeholder="Ej: 2"
+          ></p-inputNumber>
+
+          @if (obtenerError('cantidad')) {
+            <small class="error">
+              {{ obtenerError('cantidad') }}
+            </small>
+          }
+        </div>
+
+        <div
+          *ngIf="productoSeleccionado() as p"
+          class="info full-width"
+        >
+          <small>
+            Stock disponible: <strong>{{ p.disponibles }}</strong> 
+          </small>
+          <small>
+            Precio venta: <strong>{{ p.precioventa }}</strong> 
+          </small>
+        </div>
+
+        <div
+          *ngIf="productoSeleccionado() as p"
+          class="full-width"
+        >
+          <small
+            class="error"
+            *ngIf="cantidadExcedeStock()"
+          >
+            No puedes vender más del stock disponible
+          </small>
+        </div>
+
+        <div class="buttons full-width">
+          <button
+            pButton
+            type="submit"
+            label="REGISTRAR VENTA"
+            class="btn-primary"
+            [disabled]="formVenta.invalid || cantidadExcedeStock()"
+          ></button>
+        </div>
+
+      </form>
+
+    </p-card>
+
+  }
+
+</div>

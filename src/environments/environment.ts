@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://laucosmetics.onrender.com',
+    apiUrl: 'https://inventarioproductoslaucosmetics.onrender.com',
 };

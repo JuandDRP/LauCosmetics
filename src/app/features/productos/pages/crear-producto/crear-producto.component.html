@@ -2,6 +2,7 @@
   
 
   @if (hasLoadedDataError()) {
+    <p class="error">Error cargando productos</p>
   } @else {
     <p-card class="custom-card">
       <form [formGroup]="formulario" (submit)="crearProducto()" class="form-grid">

@@ -8,6 +8,11 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'ver-productos',
+        pathMatch: 'full', 
+      },
       ...PRODUCTOS_ROUTES
     ],
   },
